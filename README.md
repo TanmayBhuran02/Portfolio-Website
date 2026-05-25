@@ -1,5 +1,7 @@
 # tanmay.dev — Personal Portfolio
 
+View Here: (https://tanmaybhuran02.github.io/Portfolio-Website/)
+
 A high-fidelity **Dark Terminal Editorial** portfolio website built in vanilla HTML, CSS, and JavaScript. No frameworks. No build tools. Just two files.
 
 ---

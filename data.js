@@ -5,66 +5,73 @@ const portfolioData = {
     role: "Associate Software Engineer — Backend",
     email: "tanmaybhuran18@gmail.com",
     phone: "+91 7498464548",
-    linkedin: "https://www.linkedin.com/in/tanmay-bhuran", // Placeholder URL
-    github: "https://github.com/tanmaybhuran", // Placeholder URL
-    summary: "Associate Software Engineer with 2 years of experience in backend development and test automation. Proficient in Python (Flask), Java Spring Boot, REST APIs, PostgreSQL, and AWS. Seeking a backend role to deliver scalable, well-tested software solutions."
+    linkedin: "https://www.linkedin.com/in/tanmay-bhuran-bb8a36248/",
+    github: "https://github.com/TanmayBhuran02",
+    summary: "Associate Software Engineer with 2 years of industry experience in backend development and test automation, with working exposure to frontend integration. Proficient in Python (Flask), Java Spring Boot, and AWS-based systems. Hands-on experience building REST APIs, designing database schemas, and authoring end-to-end automation test suites using Python Playwright, with familiarity across the full request lifecycle from UI to database. Seeking a Backend Developer role to deliver scalable, well-tested, and reliable software solutions."
   },
   skills: {
     languages: ["Python", "Java", "SQL", "JavaScript"],
-    backend: ["Flask", "Spring Boot", "Django", "REST APIs", "Microservices"],
-    databases: ["PostgreSQL", "MySQL"],
-    cloudDevops: ["AWS (S3, ECS, ECR, RDS)", "Git", "CI/CD", "TeamCity"],
-    testing: ["Python Playwright", "E2E Automation"],
-    frontend: ["Angular", "HTML", "CSS", "TypeScript"]
+    backend: ["Flask", "Spring Boot", "Django", "REST APIs", "Microservices", "Authentication & Authorization"],
+    databases: ["PostgreSQL", "MySQL", "Query Optimization", "Schema Design"],
+    cloudDevops: ["AWS (S3, ECS, ECR, RDS)", "Git", "GitHub", "TeamCity"],
+    testing: ["Python Playwright", "E2E Testing", "Regression Automation"],
+    frontend: ["Angular", "HTML", "CSS"]
   },
   experience: [
     {
       role: "Associate Software Engineer",
       company: "RSquareSoft Technologies (Client: ZS Associates)",
       period: "Jan 2025 – Present",
+      location: "Onsite",
       bullets: [
-        "Built RESTful Flask APIs integrated with PostgreSQL",
-        "Wrote Python Playwright end-to-end automation test suites",
-        "Contributed Angular frontend features for API integration"
+        "Developed and maintained RESTful backend services using Python Flask, integrating business logic with PostgreSQL and serving data to frontend-facing interfaces.",
+        "Built end-to-end automation test suites using Python Playwright with reusable fixtures and utilities, covering critical workflows across frontend and backend layers.",
+        "Contributed to small frontend features using Angular, supporting API integration and consistent data flow between layers.",
+        "Collaborated with senior engineers to triage failing test suites, identifying root causes and restoring stability across release cycles."
       ]
     },
     {
       role: "Associate Software Engineer",
       company: "RSquareSoft Technologies",
       period: "Sep 2024 – Present",
+      location: "Onsite",
       bullets: [
-        "Developed Java Spring Boot backend services and REST APIs",
-        "Optimized SQL queries and database schemas",
-        "Worked with AWS: S3, ECS, ECR, RDS"
+        "Developed backend services and REST APIs using Java Spring Boot and PostgreSQL.",
+        "Optimized SQL queries and database schemas for performance improvements.",
+        "Worked with AWS services such as S3, ECS, ECR, and RDS."
       ]
     },
     {
       role: "Intern Software Engineer",
       company: "RSquareSoft Technologies",
       period: "Apr 2024 – Sep 2024",
+      location: "Onsite",
       bullets: [
-        "Assisted backend development in a microservices environment",
-        "Supported API development and database operations"
+        "Assisted in backend and data-related development tasks in a microservices environment.",
+        "Supported API development and database operations."
       ]
     }
   ],
   projects: [
     {
-      title: "ValetPlus",
-      date: "Jan 2025",
-      description: "Data-driven valet management platform",
+      title: "Multi-Tenant SaaS Bootstrapper",
+      date: "May 2026",
+      tech: ["Flask", "PostgreSQL", "React (Vite)"],
       bullets: [
-        "Designed backend data flows for valet events and operational metrics",
-        "Integrated AWS for scalable storage and deployment"
+        "Implemented subdomain-based tenant routing with SQLAlchemy-level row-level security, auto-scoping every query to the active tenant via a ContextVar interceptor.",
+        "Built tenant provisioning, JWT auth, plan-tiered feature flags, and a superadmin panel with cross-tenant metrics and soft-delete over a shared PostgreSQL schema.",
+        "Developed a React frontend with a multi-step onboarding wizard, flag-gated UI components, and a superadmin tenant-switcher."
       ]
     },
     {
-      title: "Employee360",
-      date: "Oct 2024",
-      description: "Employee data management microservice",
+      title: "ValetPlus",
+      date: "Jan 2025",
+      tech: ["AWS"],
+      description: "Data-driven valet management platform",
       bullets: [
-        "Built microservice for employee and attendance data",
-        "Designed PostgreSQL schemas optimized for reporting"
+        "Designed backend data flows to track valet events and operational metrics.",
+        "Processed transactional data to generate operational insights.",
+        "Integrated AWS services for scalable data storage and deployment."
       ]
     }
   ],
@@ -92,5 +99,9 @@ const portfolioData = {
       issuer: "AWS Academy",
       year: "2023"
     }
+  ],
+  activities: [
+    "Mentored Java Spring Boot and DevOps interns on backend development and DevOps fundamentals as personal initiative (2025).",
+    "Club Service Director, Rotaract Club Lote (2024–25)."
   ]
 };

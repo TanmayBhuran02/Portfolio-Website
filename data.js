@@ -76,17 +76,20 @@ const portfolioData = {
     {
       title: "Python and Flask Framework",
       issuer: "Udemy",
-      year: "2025"
+      year: "2025",
+      certificateUrl: "https://drive.google.com/file/d/1-LmhwVM1jZdCjBVZGXzz7kdhned1iZHM/preview"
     },
     {
-      title: "Spring Boot for Beginners",
-      issuer: "Amigoscode",
-      year: "2024"
+      title: "Full Stack JAVA",
+      issuer: "Symbiosis Skills & Professional University × Capgemini",
+      year: "2024",
+      certificateUrl: "https://drive.google.com/file/d/1gLJVvSuzJtEgy1yXxECp-39WEgIX9Z2u/preview"
     },
     {
-      title: "AWS Academy Cloud Foundations",
+      title: "JAVA Programming - Beginner to Master",
       issuer: "AWS Academy",
-      year: "2023"
+      year: "2023",
+      certificateUrl: "https://drive.google.com/file/d/1c78eooc1HbGIAjaMlELi47NvVZ29I9Xy/preview"
     }
   ],
   activities: [

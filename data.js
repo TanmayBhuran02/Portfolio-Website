@@ -93,7 +93,7 @@ const portfolioData = {
     }
   ],
   activities: [
-    "Mentored Java Spring Boot and DevOps interns on backend development and DevOps fundamentals as personal initiative (2025).",
-    "Club Service Director, Rotaract Club Lote (2024–25)."
+    "Received the Star Performer Award from RSquareSoft Technologies for outstanding contribution in Q2 2025.",
+    "Mentored Java Spring Boot and DevOps interns on backend development and DevOps fundamentals as personal initiative (2025)."
   ]
 };

@@ -204,6 +204,10 @@
       letter-spacing: -0.5px;
     }
 
+    header .logo {
+      display: none !important;
+    }
+
     .logo span {
       color: #3b82f6;
     }
@@ -566,8 +570,10 @@
     .photo-wrapper {
       position: relative;
       z-index: 2;
-      width: 320px;
-      height: 320px;
+      width: 380px;
+      height: 380px;
+      margin-right: -60px;
+      margin-top: -20px;
       opacity: 0;
       transform: scale(0.92);
       animation: scaleIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
@@ -641,6 +647,8 @@
       .photo-wrapper {
         width: 260px;
         height: 260px;
+        margin-right: 0 !important;
+        margin-top: 0 !important;
       }
 
       .hero-pitch {
@@ -1591,8 +1599,8 @@
           <p class="hero-pitch" id="hero-pitch">Loading...</p>
           <div class="hero-ctas">
             <a href="#projects" class="btn btn-primary">View My Work</a>
-            <a href="./assets/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Download
-              Resume</a>
+            <a href="./assets/resume.pdf" download="Tanmay_Sanjay_Bhuran_Software_Engineer_Resume.pdf" target="_blank"
+              rel="noopener noreferrer" class="btn btn-secondary">Download Resume</a>
           </div>
           <div class="hero-socials" id="hero-socials">
             <!-- Populated inline SVGs dynamically -->
@@ -2145,11 +2153,11 @@
 
               // Only connect closely situated nodes
               if (dist < 180) {
-                let alpha = (1 - dist / 180) * 0.15;
+                let alpha = (1 - dist / 180) * 0.45;
 
                 // Brighten line if it is tied to hovered category
                 if (hoveredNode && (hoveredNode.category === nodes[i].category)) {
-                  alpha = (1 - dist / 180) * 0.55;
+                  alpha = (1 - dist / 180) * 0.95;
                 }
 
                 ctx.strokeStyle = `rgba(${hexToRgbChannels(nodes[i].color)}, ${alpha})`;
@@ -2321,6 +2329,7 @@
       data.projects.forEach((proj, projIdx) => {
         const card = document.createElement("div");
         card.className = "project-card";
+        card.dataset.projectIdx = projIdx;
 
         let techBadges = "";
         proj.tech.forEach(t => {
@@ -2473,11 +2482,11 @@
         clearTypewriter();
       };
 
-      // Set trigger clicks on cards buttons
+      // Set trigger clicks on cards
       document.getElementById("projects-grid").addEventListener("click", (e) => {
-        const btn = e.target.closest(".terminal-trigger-btn");
-        if (btn) {
-          const idx = parseInt(btn.getAttribute("data-project-idx"), 10);
+        const card = e.target.closest(".project-card");
+        if (card) {
+          const idx = parseInt(card.dataset.projectIdx, 10);
           openProjectTerminal(idx);
         }
       });

@@ -4,8 +4,8 @@ const portfolioData = {
     name: "Tanmay Sanjay Bhuran",
     role: "Associate Software Engineer — Backend",
     email: "tanmaybhuran18@gmail.com",
-    phone: "+91 7498464548",
-    linkedin: "https://www.linkedin.com/in/tanmay-bhuran-bb8a36248/",
+    phone: "+917498464548",
+    linkedin: "https://www.linkedin.com/in/tanmay-bhuran-bb8a36248",
     github: "https://github.com/TanmayBhuran02",
     summary: "Associate Software Engineer with 2 years of industry experience in backend development and test automation, with working exposure to frontend integration. Proficient in Python (Flask), Java Spring Boot, and AWS-based systems. Hands-on experience building REST APIs, designing database schemas, and authoring end-to-end automation test suites using Python Playwright, with familiarity across the full request lifecycle from UI to database. Seeking a Backend Developer role to deliver scalable, well-tested, and reliable software solutions."
   },
@@ -61,17 +61,6 @@ const portfolioData = {
         "Implemented subdomain-based tenant routing with SQLAlchemy-level row-level security, auto-scoping every query to the active tenant via a ContextVar interceptor.",
         "Built tenant provisioning, JWT auth, plan-tiered feature flags, and a superadmin panel with cross-tenant metrics and soft-delete over a shared PostgreSQL schema.",
         "Developed a React frontend with a multi-step onboarding wizard, flag-gated UI components, and a superadmin tenant-switcher."
-      ]
-    },
-    {
-      title: "ValetPlus",
-      date: "Jan 2025",
-      tech: ["AWS"],
-      description: "Data-driven valet management platform",
-      bullets: [
-        "Designed backend data flows to track valet events and operational metrics.",
-        "Processed transactional data to generate operational insights.",
-        "Integrated AWS services for scalable data storage and deployment."
       ]
     }
   ],

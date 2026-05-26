@@ -1363,8 +1363,8 @@
 
     .terminal-body {
       padding: 2.2rem;
-      min-height: 280px;
-      max-height: 480px;
+      height: 420px;
+      max-height: 70vh;
       overflow-y: auto;
       font-family: 'JetBrains Mono', monospace;
       font-size: 0.88rem;
@@ -2372,7 +2372,7 @@
             if (count >= 25) return;
 
             // Random initial placement within padding boundaries
-            const padding = 60;
+            const padding = 80;
             const x = padding + Math.random() * (width - padding * 2);
             const y = padding + Math.random() * (height - padding * 2);
 
@@ -2383,8 +2383,8 @@
               y: y,
               vx: (Math.random() - 0.5) * 0.7, // gentle velocity drift
               vy: (Math.random() - 0.5) * 0.7,
-              radius: 5,
-              baseRadius: 5,
+              radius: 6,
+              baseRadius: 6,
               color: categoryColors[cat],
               categoryLabel: categoryLabels[cat]
             });
@@ -2435,11 +2435,11 @@
           node.vy += (Math.random() - 0.5) * 0.02;
 
           // Boundary bouncing physics
-          const borderPad = 25;
-          if (node.x < borderPad) { node.x = borderPad; node.vx *= -1; }
-          if (node.x > width - borderPad) { node.x = width - borderPad; node.vx *= -1; }
-          if (node.y < borderPad) { node.y = borderPad; node.vy *= -1; }
-          if (node.y > height - borderPad) { node.y = height - borderPad; node.vy *= -1; }
+          const borderPad = 35;
+          if (node.x < borderPad) { node.x = borderPad; node.vx = Math.abs(node.vx); }
+          if (node.x > width - borderPad) { node.x = width - borderPad; node.vx = -Math.abs(node.vx); }
+          if (node.y < borderPad) { node.y = borderPad; node.vy = Math.abs(node.vy); }
+          if (node.y > height - borderPad) { node.y = height - borderPad; node.vy = -Math.abs(node.vy); }
 
           // Cap speed limits
           let speed = Math.sqrt(node.vx * node.vx + node.vy * node.vy);
@@ -2450,31 +2450,74 @@
           }
         });
 
-        // 3. Draw connecting lines between nodes in same category
+        // 3. Draw constellation-style connections (2 nearest same-category neighbors per node)
+
+        // Build a Set of allowed connection pairs (by index), max 2 per node, max 1 distant
+        const allowedConnections = new Set();
+        const connectionCount = new Array(nodes.length).fill(0);
+        const distantConnectionCount = new Array(nodes.length).fill(0);
+        const maxPerNode = 2;
+        const maxDistant = 1;
+        const distThreshold = 120;
+
+        // Build candidate pairs sorted by distance (globally)
+        const candidatePairs = [];
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            if (nodes[i].category !== nodes[j].category) continue;
+            let dx = nodes[j].x - nodes[i].x;
+            let dy = nodes[j].y - nodes[i].y;
+            candidatePairs.push({ i, j, dist: Math.sqrt(dx * dx + dy * dy) });
+          }
+        }
+
+        // Sort shortest first, then greedily assign up to 2 connections per node
+        candidatePairs.sort((a, b) => a.dist - b.dist);
+        for (const pair of candidatePairs) {
+          if (connectionCount[pair.i] >= maxPerNode || connectionCount[pair.j] >= maxPerNode) continue;
+          
+          if (pair.dist > distThreshold) {
+            if (distantConnectionCount[pair.i] >= maxDistant || distantConnectionCount[pair.j] >= maxDistant) continue;
+          }
+
+          const key = `${pair.i}-${pair.j}`;
+          allowedConnections.add(key);
+          connectionCount[pair.i]++;
+          connectionCount[pair.j]++;
+          
+          if (pair.dist > distThreshold) {
+            distantConnectionCount[pair.i]++;
+            distantConnectionCount[pair.j]++;
+          }
+        }
+
         ctx.lineWidth = 1;
         for (let i = 0; i < nodes.length; i++) {
           for (let j = i + 1; j < nodes.length; j++) {
-            if (nodes[i].category === nodes[j].category) {
-              let dx = nodes[j].x - nodes[i].x;
-              let dy = nodes[j].y - nodes[i].y;
-              let dist = Math.sqrt(dx * dx + dy * dy);
+            if (nodes[i].category !== nodes[j].category) continue;
 
-              // Only connect closely situated nodes
-              if (dist < 180) {
-                let alpha = (1 - dist / 180) * 0.45;
+            const key = `${i}-${j}`;
+            if (!allowedConnections.has(key)) continue;
 
-                // Brighten line if it is tied to hovered category
-                if (hoveredNode && (hoveredNode.category === nodes[i].category)) {
-                  alpha = (1 - dist / 180) * 0.95;
-                }
+            let dx = nodes[j].x - nodes[i].x;
+            let dy = nodes[j].y - nodes[i].y;
+            let dist = Math.sqrt(dx * dx + dy * dy);
 
-                ctx.strokeStyle = `rgba(${hexToRgbChannels(nodes[i].color)}, ${alpha})`;
-                ctx.beginPath();
-                ctx.moveTo(nodes[i].x, nodes[i].y);
-                ctx.lineTo(nodes[j].x, nodes[j].y);
-                ctx.stroke();
-              }
+            let alpha = dist < 120
+              ? (1 - dist / 120) * 0.45
+              : 0.12;
+
+            if (hoveredNode && hoveredNode.category === nodes[i].category) {
+              alpha = dist < 120
+                ? (1 - dist / 120) * 0.95
+                : 0.45;
             }
+
+            ctx.strokeStyle = `rgba(${hexToRgbChannels(nodes[i].color)}, ${alpha})`;
+            ctx.beginPath();
+            ctx.moveTo(nodes[i].x, nodes[i].y);
+            ctx.lineTo(nodes[j].x, nodes[j].y);
+            ctx.stroke();
           }
         }
 
@@ -2491,10 +2534,10 @@
           } else if (isSameCategoryHovered) {
             ctx.shadowColor = node.color;
             ctx.shadowBlur = 8;
-            node.radius = 6;
+            node.radius = 7;
           } else {
             ctx.shadowBlur = 0;
-            node.radius = 5;
+            node.radius = node.baseRadius;
           }
 
           // Render node center circle
@@ -2513,9 +2556,9 @@
 
           // Render node skill label
           ctx.fillStyle = (isHovered || isSameCategoryHovered) ? '#ffffff' : '#94a3b8';
-          ctx.font = isHovered ? "bold 11px 'JetBrains Mono', monospace" : "10px 'JetBrains Mono', monospace";
+          ctx.font = isHovered ? "bold 13px 'JetBrains Mono', monospace" : "12px 'JetBrains Mono', monospace";
           ctx.textAlign = 'center';
-          ctx.fillText(node.name, node.x, node.y - node.radius - 6);
+          ctx.fillText(node.name, node.x, node.y - node.radius - 8);
         });
 
         requestAnimationFrame(animateGraph);
@@ -2530,7 +2573,7 @@
       });
 
       canvas.addEventListener("mousemove", (e) => {
-        // Map mouse position relative to canvas offset scale
+        canvasRect = canvas.getBoundingClientRect(); // recompute each time
         mouse.x = e.clientX - canvasRect.left;
         mouse.y = e.clientY - canvasRect.top;
 
@@ -2541,7 +2584,7 @@
           let dy = mouse.y - node.y;
           let dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < 20) { // generous hover radius for accessibility
+          if (dist < 30) { // generous hover radius for accessibility
             foundNode = node;
             break;
           }
@@ -2572,10 +2615,25 @@
 
       // Canvas click tooltip locked details lock helper
       canvas.addEventListener("click", () => {
-        if (hoveredNode) {
-          // Pulse the node on click
-          hoveredNode.vx += (Math.random() - 0.5) * 6;
-          hoveredNode.vy += (Math.random() - 0.5) * 6;
+        let target = hoveredNode;
+
+        if (!target) {
+          // Fresh hit-test fallback for desktop
+          for (let node of nodes) {
+            let dx = mouse.x - node.x;
+            let dy = mouse.y - node.y;
+            if (Math.sqrt(dx * dx + dy * dy) < 20) {
+              target = node;
+              break;
+            }
+          }
+        }
+
+        if (target) {
+          target.vx += (Math.random() - 0.5) * 10;
+          target.vy += (Math.random() - 0.5) * 10;
+          target.radius = 12;
+          setTimeout(() => { target.radius = target.baseRadius; }, 400);
         }
       });
 

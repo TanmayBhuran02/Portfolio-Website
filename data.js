@@ -54,6 +54,17 @@ const portfolioData = {
   ],
   projects: [
     {
+      title: "AuthFlow Starter Kit",
+      date: "May 2026",
+      tech: ["FastAPI", "SQLAlchemy", "JWT", "Vanilla JS"],
+      bullets: [
+        "Built a production-ready authentication and authorization starter kit using FastAPI and SQLAlchemy.",
+        "Implemented secure JWT authentication with refresh token rotation, token blacklisting, and protected API access.",
+        "Developed a granular RBAC system for role-based endpoint authorization and user management.",
+        "Designed a customizable backend architecture with dependency injection and a built-in frontend for authentication and admin workflows."
+      ]
+    },
+    {
       title: "Multi-Tenant SaaS Bootstrapper",
       date: "May 2026",
       tech: ["Flask", "PostgreSQL", "React (Vite)"],

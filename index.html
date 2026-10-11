@@ -596,6 +596,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center top;
       filter: grayscale(10%) contrast(105%);
       transition: filter 0.4s ease;
     }
@@ -1018,6 +1019,24 @@
       left: 0;
       color: #3b82f6;
       font-family: 'JetBrains Mono', monospace;
+    }
+
+    .exp-subsection-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      color: #60a5fa;
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      letter-spacing: 0.3px;
+    }
+
+    .exp-subsection-title::before {
+      content: '//';
+      color: #3b82f6;
+      opacity: 0.85;
     }
 
     /* Contact Cards */
@@ -1462,6 +1481,48 @@
       display: inline-block;
     }
 
+    .activities-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .activity-item {
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-left: 2px solid #3b82f6;
+      border-radius: 6px;
+      padding: 1.5rem;
+    }
+
+    .activity-period {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #3b82f6;
+      margin-bottom: 0.4rem;
+      display: block;
+    }
+
+    .activity-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #ffffff;
+      margin-bottom: 0.2rem;
+    }
+
+    .activity-issuer {
+      font-size: 0.88rem;
+      color: #cbd5e1;
+      margin-bottom: 0.4rem;
+    }
+
+    .activity-detail {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      line-height: 1.5;
+    }
+
     /* Certifications flip-in grid */
     .certifications-grid {
       display: grid;
@@ -1882,7 +1943,7 @@
         <!-- 3-Column Stats -->
         <div class="stats-container stagger-child" id="stats-container" data-animate>
           <div class="stat-card">
-            <span class="stat-number" id="stat-experience" data-target="2" data-suffix=" yrs">0</span>
+            <span class="stat-number" id="stat-experience" data-target="2" data-suffix="+ yrs">0</span>
             <span class="stat-label">Industry Experience</span>
           </div>
           <div class="stat-card">
@@ -2007,6 +2068,11 @@
         <div class="education-column">
           <h3 class="sub-section-title">// Academic background</h3>
           <div class="education-list" id="education-list">
+            <!-- populated by JS -->
+          </div>
+
+          <h3 class="sub-section-title" style="margin-top: 2.5rem;">// Honors & Activities</h3>
+          <div class="activities-list" id="activities-list">
             <!-- populated by JS -->
           </div>
         </div>
@@ -2659,11 +2725,34 @@
         item.className = "timeline-item" + (index === 0 ? " current" : "");
         item.setAttribute("data-animate", "");
 
-        // Build list elements
-        let bulletsHtml = "";
-        exp.bullets.forEach(bullet => {
-          bulletsHtml += `<li>${bullet}</li>`;
-        });
+        // Build content body (subsections or flat bullets)
+        let bodyHtml = "";
+        if (exp.subsections && exp.subsections.length > 0) {
+          exp.subsections.forEach((sub, subIdx) => {
+            let subBullets = "";
+            sub.bullets.forEach(bullet => {
+              subBullets += `<li>${bullet}</li>`;
+            });
+            bodyHtml += `
+              <div class="exp-subsection" style="${subIdx > 0 ? 'margin-top: 1.6rem; padding-top: 1.3rem; border-top: 1px dashed rgba(255, 255, 255, 0.08);' : ''}">
+                <div class="exp-subsection-title">${sub.title}</div>
+                <ul class="exp-bullets">
+                  ${subBullets}
+                </ul>
+              </div>
+            `;
+          });
+        } else if (exp.bullets) {
+          let bulletsHtml = "";
+          exp.bullets.forEach(bullet => {
+            bulletsHtml += `<li>${bullet}</li>`;
+          });
+          bodyHtml = `
+            <ul class="exp-bullets">
+              ${bulletsHtml}
+            </ul>
+          `;
+        }
 
         item.innerHTML = `
           <div class="timeline-dot"></div>
@@ -2678,9 +2767,7 @@
                 <span class="exp-location">${exp.location || 'Onsite'}</span>
               </div>
             </div>
-            <ul class="exp-bullets">
-              ${bulletsHtml}
-            </ul>
+            ${bodyHtml}
           </div>
         `;
 
@@ -2902,6 +2989,23 @@
         `;
         eduList.appendChild(card);
       });
+
+      // Activities Column
+      const activitiesList = document.getElementById("activities-list");
+      if (activitiesList && data.activities) {
+        activitiesList.innerHTML = "";
+        data.activities.forEach(act => {
+          const actCard = document.createElement("div");
+          actCard.className = "activity-item";
+          actCard.innerHTML = `
+            <span class="activity-period">${act.period}</span>
+            <h4 class="activity-title">${act.title}</h4>
+            <div class="activity-issuer">${act.issuer}</div>
+            <div class="activity-detail">${act.detail}</div>
+          `;
+          activitiesList.appendChild(actCard);
+        });
+      }
 
       // Certifications column with scroll Y flip transition
       const certGrid = document.getElementById("certifications-grid");

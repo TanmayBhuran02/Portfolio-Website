@@ -2,43 +2,50 @@
 const portfolioData = {
   personal: {
     name: "Tanmay Sanjay Bhuran",
-    role: "Associate Software Engineer — Backend",
+    role: "Software Engineer – Backend Engineering",
     email: "tanmaybhuran18@gmail.com",
-    phone: "+917498464548",
+    phone: "+91 7498464548",
     linkedin: "https://www.linkedin.com/in/tanmay-bhuran-bb8a36248",
     github: "https://github.com/TanmayBhuran02",
-    summary: "Associate Software Engineer with 2 years of industry experience in backend development and test automation, with working exposure to frontend integration. Proficient in Python (Flask), Java Spring Boot, and AWS-based systems. Hands-on experience building REST APIs, designing database schemas, and authoring end-to-end automation test suites using Python Playwright, with familiarity across the full request lifecycle from UI to database. Seeking a Backend Developer role to deliver scalable, well-tested, and reliable software solutions."
+    website: "https://tanmaybhuran02.github.io/Portfolio-Website/",
+    summary: "Associate Software Engineer with 2+ years of experience in backend development, with exposure to frontend integration and test automation. Proficient in Python (Flask, FastAPI), Java Spring Boot, and AWS-based systems. Experienced in designing and building scalable REST APIs, optimizing database schemas for performance, and deploying backend services on AWS cloud infrastructure."
   },
   skills: {
-    languages: ["Python", "Java", "SQL", "JavaScript"],
-    backend: ["Flask", "Spring Boot", "Django", "REST APIs", "Microservices", "Authentication & Authorization"],
+    languages: ["Python", "Java", "SQL", "JavaScript (basic)"],
+    backend: ["Flask", "FastAPI", "Spring Boot", "Django", "REST APIs", "Microservices", "Authentication & Authorization"],
     databases: ["PostgreSQL", "MySQL", "Query Optimization", "Schema Design"],
-    cloudDevops: ["AWS (S3, ECS, ECR, RDS)", "Git", "GitHub", "TeamCity"],
-    testing: ["Python Playwright", "E2E Testing", "Regression Automation"],
-    frontend: ["Angular", "HTML", "CSS"]
+    cloudDevops: ["AWS (S3, ECS, ECR, RDS)", "Git", "GitHub", "Docker"],
+    testing: ["Python Playwright", "Pytest", "End-to-End Testing", "Regression Automation"],
+    frontend: ["Angular", "React", "HTML", "CSS"]
   },
   experience: [
-    {
-      role: "Associate Software Engineer",
-      company: "RSquareSoft Technologies (Client: ZS Associates)",
-      period: "Jan 2025 – Present",
-      location: "Onsite",
-      bullets: [
-        "Developed and maintained RESTful backend services using Python Flask, integrating business logic with PostgreSQL and serving data to frontend-facing interfaces.",
-        "Built end-to-end automation test suites using Python Playwright with reusable fixtures and utilities, covering critical workflows across frontend and backend layers.",
-        "Contributed to small frontend features using Angular, supporting API integration and consistent data flow between layers.",
-        "Collaborated with senior engineers to triage failing test suites, identifying root causes and restoring stability across release cycles."
-      ]
-    },
     {
       role: "Associate Software Engineer",
       company: "RSquareSoft Technologies",
       period: "Sep 2024 – Present",
       location: "Onsite",
+      subsections: [
+        {
+          title: "Client – ZS Associates (Jan 2025 – Present)",
+          bullets: [
+            "Developed and maintained RESTful backend services using Python Flask, integrating complex business logic with PostgreSQL.",
+            "Designed and implemented backend workflows and REST API endpoints across multiple application layers, contributing small frontend features using Angular.",
+            "Built end-to-end automation test suite using Python Playwright, reducing manual testing effort from 20 hours to 4–5 hours per cycle.",
+            "Collaborated with senior engineers to triage and restore backend stability across release cycles."
+          ]
+        },
+        {
+          title: "Internal Projects (Sep 2024 – Present)",
+          bullets: [
+            "Developed backend services and REST APIs using Java Spring Boot with PostgreSQL as primary data store.",
+            "Optimized long-running SQL queries on multi-million row datasets, reducing execution time from ~1 minute to 15–20 seconds.",
+            "Deployed and managed backend services using AWS infrastructure including S3, ECS, ECR, and RDS."
+          ]
+        }
+      ],
       bullets: [
-        "Developed backend services and REST APIs using Java Spring Boot and PostgreSQL.",
-        "Optimized SQL queries and database schemas for performance improvements.",
-        "Worked with AWS services such as S3, ECS, ECR, and RDS."
+        "Client – ZS Associates: Developed RESTful backend services using Python Flask with PostgreSQL, built E2E Playwright test suite reducing manual effort from 20h to 4–5h/cycle, and contributed Angular features.",
+        "Internal Projects: Developed Java Spring Boot REST APIs, optimized SQL queries on multi-million row datasets (1 min → 15–20s), and deployed AWS infrastructure (S3, ECS, ECR, RDS)."
       ]
     },
     {
@@ -47,37 +54,43 @@ const portfolioData = {
       period: "Apr 2024 – Sep 2024",
       location: "Onsite",
       bullets: [
-        "Assisted in backend and data-related development tasks in a microservices environment.",
-        "Supported API development and database operations."
+        "Assisted in backend development tasks within a Java Spring Boot microservices architecture.",
+        "Developed and maintained REST APIs and contributed to database operations using PostgreSQL.",
+        "Collaborated to design and enhance database schemas, improving data integrity and query efficiency."
       ]
     }
   ],
   projects: [
     {
-      title: "AuthFlow Starter Kit",
+      title: "Multi-Tenant SaaS Bootstrapper",
       date: "May 2026",
-      tech: ["FastAPI", "SQLAlchemy", "JWT", "Vanilla JS"],
+      tech: ["FastAPI", "Python", "PostgreSQL", "SQLAlchemy", "React"],
       bullets: [
-        "Built a production-ready authentication and authorization starter kit using FastAPI and SQLAlchemy.",
-        "Implemented secure JWT authentication with refresh token rotation, token blacklisting, and protected API access.",
-        "Developed a granular RBAC system for role-based endpoint authorization and user management.",
-        "Designed a customizable backend architecture with dependency injection and a built-in frontend for authentication and admin workflows."
+        "Built a reusable multi-tenant SaaS platform with JWT authentication, RBAC, and tenant provisioning.",
+        "Added feature flags and plan-based limits to control access and usage per tenant.",
+        "Implemented automatic tenant isolation using ContextVar and SQLAlchemy ORM events, with superadmin cross-tenant access.",
+        "Developed reusable REST APIs and React components supporting custom frontend integration.",
+        "Wrote pytest unit tests validating core business logic, tenant isolation, and API behaviour.",
+        "Containerized the application using Docker for consistent development and deployment environments."
       ]
     },
     {
-      title: "Multi-Tenant SaaS Bootstrapper",
+      title: "AuthFlow Starter Kit",
       date: "May 2026",
-      tech: ["Flask", "PostgreSQL", "React (Vite)"],
+      tech: ["FastAPI", "SQLAlchemy", "JWT", "RBAC"],
       bullets: [
-        "Implemented subdomain-based tenant routing with SQLAlchemy-level row-level security, auto-scoping every query to the active tenant via a ContextVar interceptor.",
-        "Built tenant provisioning, JWT auth, plan-tiered feature flags, and a superadmin panel with cross-tenant metrics and soft-delete over a shared PostgreSQL schema.",
-        "Developed a React frontend with a multi-step onboarding wizard, flag-gated UI components, and a superadmin tenant-switcher."
+        "Built a production-ready authentication starter kit using FastAPI and SQLAlchemy.",
+        "Implemented JWT authentication with refresh tokens and token blacklisting.",
+        "Added role-based access control (RBAC) for permission management.",
+        "Designed a modular backend architecture with a built-in frontend for authentication and user management.",
+        "Wrote pytest unit tests covering authentication flows, RBAC rules, and token lifecycle management.",
+        "Containerized the application using docker-compose for consistent deployment environments."
       ]
     }
   ],
   education: [
     {
-      degree: "B.E. Computer Engineering",
+      degree: "B.E. in Computer Engineering",
       institution: "Gharda Institute of Technology",
       period: "2020 – 2024",
       details: "CGPA: 7.44/10"
@@ -98,13 +111,23 @@ const portfolioData = {
     },
     {
       title: "JAVA Programming - Beginner to Master",
-      issuer: "AWS Academy",
+      issuer: "Udemy",
       year: "2023",
       certificateUrl: "https://drive.google.com/file/d/1c78eooc1HbGIAjaMlELi47NvVZ29I9Xy/preview"
     }
   ],
   activities: [
-    "Received the Star Performer Award from RSquareSoft Technologies for outstanding contribution in Q2 2025.",
-    "Mentored Java Spring Boot and DevOps interns on backend development and DevOps fundamentals as personal initiative (2025)."
+    {
+      title: "Star Performer Award",
+      issuer: "RSquareSoft Technologies",
+      period: "Q2 2025",
+      detail: "Received for outstanding contribution across release cycles and backend deliverables."
+    },
+    {
+      title: "Backend & DevOps Mentorship",
+      issuer: "Personal Initiative",
+      period: "2025",
+      detail: "Mentored Java Spring Boot and DevOps interns on backend architecture, API patterns, and DevOps fundamentals."
+    }
   ]
 };
